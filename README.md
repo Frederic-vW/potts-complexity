@@ -1,6 +1,7 @@
 # potts-complexity
 
-The figure below can be reproduced by running the notebook `potts_complexity.ipynb`
+The figure below can be reproduced by running the notebook `potts_complexity.ipynb`  
+
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Frederic-vW/potts-complexity/main?labpath=potts_complexity.ipynb)
 
 ### Potts 2D visualization
