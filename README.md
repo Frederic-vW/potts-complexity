@@ -1,5 +1,6 @@
 # potts-complexity
 
+The functions for entropy rate, excess entropy, Lempel-Ziv complexity (LZ-76), and DFA are contained in the file `potts_complexity.py`.  
 The figure below can be reproduced by running the notebook `potts_complexity.ipynb`  
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Frederic-vW/potts-complexity/main?labpath=potts_complexity.ipynb)
