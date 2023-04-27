@@ -7,7 +7,7 @@ The figure below can be reproduced by running the notebook `potts_complexity.ipy
 <!--
 ![Fig_potts](Fig_potts_complexity.png)
 -->
-<img src="Fig_potts_complexity.png" width="300"/>
+<img src="Fig_potts_complexity.png" width="600"/>
 
 ### Potts 2D visualization
 Dynamics of the 2D Potts system (Q=5) on a lattice (128 x 128)  are shown below. The dynamics from the initial random state are included. 
