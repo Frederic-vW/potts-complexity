@@ -11,7 +11,7 @@ The figure below analyzes the complexity of sample data from Potts model simulat
 <img src="Fig_potts_complexity.png" width="600"/>
 
 ### Potts 2D visualization
-Dynamics of the 2D Potts system (Q=5) on a lattice (128 x 128)  are shown below. The dynamics from the initial random state are included. 
+Dynamics of the 2D Potts system (Q=5) on a lattice (128 x 128)  are shown below. The dynamics from the initial random state are included. The critical temperature is Tc=0.85.
 
 Low temperature, T=0.51 (0.6 Tc)
 <p align="center">
