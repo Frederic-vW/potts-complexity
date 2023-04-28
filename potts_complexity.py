@@ -48,21 +48,22 @@ def compute():
     print("\ndone.")
 
     # Figure
+    fsize = 14
     fig, ax = plt.subplots(3, 1, figsize=(9,9))
     # entropy rate
     ax[0].plot(rtemps, er_arr.mean(axis=1), '-sk')
-    ax[0].set_ylabel(f"entropy rate (bits/sample)", fontsize=18)
+    ax[0].set_ylabel(f"entropy rate (bits/sample)", fontsize=fsize)
     # excess entropy
     ax0c = ax[0].twinx()
-    ax0c.set_ylabel(f"excess entropy (bits)", color="b", fontsize=18)
+    ax0c.set_ylabel(f"excess entropy (bits)", color="b", fontsize=fsize)
     ax0c.plot(rtemps, ee_arr.mean(axis=1), '-^b')
     # LZC
     ax[1].plot(rtemps, lzc_arr.mean(axis=1), '-sk')
-    ax[1].set_ylabel(f"LZC (bits/sample)", fontsize=18)
+    ax[1].set_ylabel(f"LZC (bits/sample)", fontsize=fsize)
     # Hurst exponent
     ax[2].plot(rtemps, h_arr.mean(axis=1), '-sk')
-    ax[2].set_ylabel(f"H", fontsize=18)
-    ax[2].set_xlabel(f"relative T (T/Tc)", fontsize=18)
+    ax[2].set_ylabel(f"H", fontsize=fsize)
+    ax[2].set_xlabel(f"relative temp. (T/Tc)", fontsize=fsize)
     plt.tight_layout()
     plt.show()
 
