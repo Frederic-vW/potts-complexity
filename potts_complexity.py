@@ -17,7 +17,6 @@ def compute():
     rtemps = [0.2, 0.4, 0.6, 0.8, 0.9, 1.0, 1.1, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, \
               2.4, 2.6, 2.8, 3.0]
     n_temps = len(rtemps)
-    data_path = "/home/frederic/Projects/potts_complexity/data/"
     # result arrays
     n_samples = 10
     er_arr = np.zeros((n_temps,n_samples))
@@ -37,7 +36,7 @@ def compute():
     k_hist = 6
     for i, rtemp in enumerate(rtemps):
         print(f"\nrel. temp: {rtemp:.1f}, temp.: {rtemp*Tc:.2f}")
-        f_in = f"{data_path:s}PottsQ5_Temp_{rtemp*Tc:.2f}_Lattice_L25_fm.npy"
+        f_in = f"./data/PottsQ5_Temp_{rtemp*Tc:.2f}_Lattice_L25_fm.npy"
         x = np.load(f_in).astype(np.uint8)
         #x = x[:5000,:]
         #print(x.shape, x.dtype, np.unique(x)) # (30000, 10)
