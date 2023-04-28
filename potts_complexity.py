@@ -38,8 +38,6 @@ def compute():
         print(f"\nrel. temp: {rtemp:.1f}, temp.: {rtemp*Tc:.2f}")
         f_in = f"./data/PottsQ5_Temp_{rtemp*Tc:.2f}_Lattice_L25_fm.npy"
         x = np.load(f_in).astype(np.uint8)
-        #x = x[:5000,:]
-        #print(x.shape, x.dtype, np.unique(x)) # (30000, 10)
         for j in range(n_samples):
             print(f"sample {j+1:d}/{n_samples:d}", end="\r")
             er, ee = excess_entropy_rate(x[:,j], Q, k_hist, doplot=False)
@@ -111,20 +109,17 @@ def dfa(x, lmin, lmax, fitmin, fitmax, nsteps, doplot=False):
     """
     if np.all(x-x[0]==0):
         return 0.5
-    nx = len(x) # print "DFA of signal with length %d" % N
-    y = np.cumsum(x - np.mean(x)) # noise --> random walk
+    nx = len(x)
+    y = np.cumsum(x - np.mean(x)) # random walk
     # scales to compute fluctuations
-    #L = np.logspace(start=np.log10(lmin), stop=np.log10(lmax), num=nsteps, \
-    #                endpoint=True, base=10, dtype=np.int)
     ls = np.logspace(start=np.log2(lmin), stop=np.log2(lmax), num=nsteps, \
                      endpoint=True, base=2, dtype=np.int)
     ls = np.unique(ls[ls>1]) # rounding may duplicate scales
-    #print("DFA scales: ", ls)
     n = len(ls)
     fs = np.zeros(n) # detrended fluctuations
     for i in range(n):
         l = int(ls[i]) # current scale
-        # number of blocks # print 'm: %d, nb: %d' % (m, nb)
+        # number of blocks
         nb = int(np.floor(nx/l))
         # data in block shape
         y_blocks = np.array(y[:l*nb]).reshape((nb,l))
@@ -140,10 +135,8 @@ def dfa(x, lmin, lmax, fitmin, fitmax, nsteps, doplot=False):
     i_fitmin = np.argmin((ls - fitmin)**2)
     i_fitmax = np.argmin((ls - fitmax)**2)
     ls_fit = ls[i_fitmin:i_fitmax]
-    #print("fit scales: ", L_fit)
     fs_fit = fs[i_fitmin:i_fitmax]
     # fitted linear parameters
-    #p_fit = np.polyfit(np.log10(ls_fit), np.log10(fs_fit), 1)
     p_fit = np.polyfit(np.log2(ls_fit), np.log2(fs_fit), 1)
     h_dfa = p_fit[0] # slope of linear log-log fit
     if doplot:
@@ -152,13 +145,9 @@ def dfa(x, lmin, lmax, fitmin, fitmax, nsteps, doplot=False):
         fig = plt.figure(1, figsize=(6,6))
         ax = plt.gca()
         ax.loglog(ls, fs, 'ok', ms=8, alpha=0.5)
-        #ax.loglog(ls_fit, 10**(p_fit[1]) * ls_fit**h_dfa, '-b', linewidth=2)
-        #ax.loglog(ls_fit, 2**(p_fit[1]) * ls_fit**h_dfa, '-b', linewidth=2)
         ax.loglog(ls, 2**(p_fit[1]) * ls**h_dfa, '-b', linewidth=2)
-        #ax.loglog(ls_fit, 2**(p_fit[1]) * ls_fit**h_dfa, '-b', linewidth=4)
         ax.axvline(fitmin, linewidth=2)
         ax.axvline(fitmax, linewidth=2)
-        #ax.grid()
         ax.set_xlabel("scale l", **p_txt)
         ax.set_ylabel("fluct. F(l)", **p_txt)
         ax.tick_params(axis='both', which='major', labelsize=fsize)
@@ -173,14 +162,10 @@ def excess_entropy_rate(x, ns, kmax, doplot=False):
     # b = excess entropy (intersect.)
     h_ = np.zeros(kmax)
     for k in range(kmax):
-        # h_[k] = H(x, ns, 0, k+1)
-        # h_[k] = H(x, ns, k+1, 0)
         h_[k] = H(x, ns, k+1)
     ks = np.arange(1,kmax+1)
     a, b = np.polyfit(ks, h_, 1)
-    #print("ks: ", ks)
-    #print("h_: ", h_)
-    ''' --- Figure ---
+    # Figure
     if doplot:
         fsize = 16
         plt.figure(figsize=(6,6))
@@ -197,7 +182,6 @@ def excess_entropy_rate(x, ns, kmax, doplot=False):
         ax.legend(fontsize=fsize)
         plt.tight_layout()
         plt.show()
-    '''
     return (a, b)
 
 
@@ -210,7 +194,8 @@ def H(x, ns, k):
     """
     n = len(x)
     f = np.zeros(tuple(k*[ns]))
-    for t in range(n-k): f[tuple(x[t:t+k])] += 1.0
+    for t in range(n-k):
+        f[tuple(x[t:t+k])] += 1.0
     f /= (n-k) # normalize distribution
     h = -np.sum(f[f>0]*np.log2(f[f>0]))
     # Miller-Madow bias correction
