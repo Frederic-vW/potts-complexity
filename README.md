@@ -1,5 +1,6 @@
 # potts-complexity
 
+- rendered page at: https://frederic-vw.github.io/potts-complexity/
 - The functions for entropy rate, excess entropy, Lempel-Ziv complexity (LZ-76), and DFA for discrete time series are contained in the file `potts_complexity.py`.  
 - The figure below shows a complexity analysis of sample data (n=10 lattice sites) from Potts model simulations (2D lattice) and can be reproduced with the notebook `potts_complexity.ipynb`.  
 - You can run the notebook on mybinder by clicking the "launch binder" icon below:  
