@@ -35,37 +35,34 @@ def compute():
     # entropy rate / excess entropy history length
     k_hist = 6
     for i, rtemp in enumerate(rtemps):
-        print(f"\nrel. temp: {rtemp:.1f}, temp.: {rtemp*Tc:.2f}")
         f_in = f"./data/PottsQ5_Temp_{rtemp*Tc:.2f}_Lattice_L25_fm.npy"
         x = np.load(f_in).astype(np.uint8)
         for j in range(n_samples):
-            print(f"sample {j+1:d}/{n_samples:d}", end="\r")
+            print((f"rel. temp: {rtemp:.1f}, temp.: {rtemp*Tc:.2f}, "
+                   f"sample {j+1:02d}/{n_samples:d}"), end="\r")
             er, ee = excess_entropy_rate(x[:,j], Q, k_hist, doplot=False)
             er_arr[i,j] = er
             ee_arr[i,j] = ee
             lzc_arr[i,j] = lz76(x[:,j])
             h_arr[i,j] = dfa(x[:,j], **p_dfa)
-        print("")
+    print("\ndone.")
 
     # Figure
-    # plotting parameters
-    ms_ = 12
-    fs_ = 16
     fig, ax = plt.subplots(3, 1, figsize=(9,9))
     # entropy rate
     ax[0].plot(rtemps, er_arr.mean(axis=1), '-sk')
-    ax[0].set_ylabel(f"entropy rate (bits/sample)", color="b")
+    ax[0].set_ylabel(f"entropy rate (bits/sample)", fontsize=18)
     # excess entropy
     ax0c = ax[0].twinx()
-    ax0c.set_ylabel(f"excess entropy (bits)")
+    ax0c.set_ylabel(f"excess entropy (bits)", color="b", fontsize=18)
     ax0c.plot(rtemps, ee_arr.mean(axis=1), '-^b')
     # LZC
     ax[1].plot(rtemps, lzc_arr.mean(axis=1), '-sk')
-    ax[1].set_ylabel(f"LZC (bits/sample)")
+    ax[1].set_ylabel(f"LZC (bits/sample)", fontsize=18)
     # Hurst exponent
     ax[2].plot(rtemps, h_arr.mean(axis=1), '-sk')
-    ax[2].set_ylabel(f"H")
-    ax[2].set_xlabel(f"rel. temp. (T/Tc)")
+    ax[2].set_ylabel(f"H", fontsize=18)
+    ax[2].set_xlabel(f"relative T (T/Tc)", fontsize=18)
     plt.tight_layout()
     plt.show()
 
@@ -242,8 +239,8 @@ def lz76(x):
 
 
 def main():
-    pass
-    #compute()
+    #pass
+    compute()
 
 
 if __name__ == "__main__":
