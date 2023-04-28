@@ -58,8 +58,10 @@ def compute():
     ax0c.set_ylabel(f"excess entropy (bits)", color="b", fontsize=fsize)
     ax0c.plot(rtemps, ee_arr.mean(axis=1), '-^b')
     # LZC
-    ax[1].plot(rtemps, lzc_arr.mean(axis=1), '-sk')
+    ax[1].plot(rtemps, lzc_arr.mean(axis=1), '-sk', label='LZC')
+    ax[1].plot(rtemps, er_arr.mean(axis=1), 'og', mfc='none', ms=14, label='ER')
     ax[1].set_ylabel(f"LZC (bits/sample)", fontsize=fsize)
+    ax[1].legend(loc='lower right', fontsize=fsize)
     # Hurst exponent
     ax[2].plot(rtemps, h_arr.mean(axis=1), '-sk')
     ax[2].set_ylabel(f"H", fontsize=fsize)
